@@ -1,0 +1,4 @@
+sqlalchemy-bigquery==1.11.0
+psycopg2-binary==2.9.9
+mysqlclient==2.2.4
+pyarrow==17.0.0
