@@ -1,3 +1,4 @@
+# .github/workflows/build-superset.yml
 name: Build Superset
 on:
   push:
@@ -6,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  packages: write
+  packages: write   # GHCR 푸시 위해 필요
 
 jobs:
   build:
@@ -14,13 +15,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Login GHCR
+      # ➊ Buildx를 container 드라이버로 셋업 (핵심!)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true              # docker buildx 명령을 기본으로
+          driver: docker-container   # (기본값이기도 하지만 명시해도 좋음)
+          # 필요 시 최신 BuildKit 이미지로 고정
+          # driver-opts: image=moby/buildkit:latest
+
+      # ➋ GHCR 로그인
+      - name: Login to GHCR
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      # ➌ 빌드 & 푸시 (GHA 캐시 유지)
       - name: Build & Push
         uses: docker/build-push-action@v6
         with:
@@ -34,3 +46,5 @@ jobs:
             BASE_TAG=3.1.0
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          # (옵션) 단일 플랫폼만 빌드할 거면 명시
+          # platforms: linux/amd64
