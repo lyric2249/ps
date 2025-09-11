@@ -43,7 +43,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/superset-custom:latest
             ghcr.io/${{ github.repository_owner }}/superset-custom:${{ github.sha }}
           build-args: |
-            BASE_TAG=3.1.0
+            BASE_TAG=4.1.4
           cache-from: type=gha
           cache-to: type=gha,mode=max
           # (옵션) 단일 플랫폼만 빌드할 거면 명시
