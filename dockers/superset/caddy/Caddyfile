@@ -8,7 +8,7 @@ www.{$PUBLIC_HOST} {
   @superset path /superset/*
   handle @superset {
     # 프리픽스 "그대로" 유지해서 전달 (handle_path 쓰지 않음)
-    reverse_proxy 127.0.0.1:8088
+    reverse_proxy superset:8088
   }
 
   respond "OK" 200

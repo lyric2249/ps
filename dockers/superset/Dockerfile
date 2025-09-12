@@ -1,7 +1,7 @@
 # ps/dockers/superset/Dockerfile
 
 ARG BASE_IMAGE=apache/superset
-ARG BASE_TAG=4.1.4
+ARG BASE_TAG=5.0.0
 FROM ${BASE_IMAGE}:${BASE_TAG}
 
 # ➊ OS 빌드 툴/헤더 + MySQL 클라이언트 헤더(사용한다면) 설치
