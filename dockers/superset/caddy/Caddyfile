@@ -1,10 +1,23 @@
 {$PUBLIC_HOST}, www.{$PUBLIC_HOST} {
     encode zstd gzip
+  # 1) /superset (슬래시 없음) 들어오면 슬래시 붙여서 영구 리다이렉트
+  @superset_noslash path /superset
+  redir @superset_noslash /superset/ 308
 
-    # Serve Superset under /ss by stripping the prefix before proxying
-    handle_path /ss* {
-        reverse_proxy superset:8088
+  # 2) /superset* 는 그대로 백엔드로 (절대 strip_prefix/handle_path 쓰지 않기)
+  @superset path /superset*
+  handle @superset {
+    reverse_proxy superset:8088 {
+      header_up X-Forwarded-Proto {scheme}
+      header_up X-Forwarded-Host {host}
+      header_up Host {host}
     }
+  }
+
+    # # Serve Superset under /ss by stripping the prefix before proxying
+    # handle_path /ss* {
+    #     reverse_proxy superset:8088
+    # }
 
     # Optional: simple 200 on root to verify host is up
     respond / 200

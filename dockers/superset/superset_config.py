@@ -13,14 +13,14 @@ SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 ENABLE_PROXY_FIX = True  # 프록시/로드밸런서 뒤에서 필수
 
-# Subpath deployment (/ss)
-APPLICATION_ROOT = "/ss"
-SESSION_COOKIE_PATH = "/ss"
+# # Subpath deployment (/ss)
+# APPLICATION_ROOT = "/ss"
+# SESSION_COOKIE_PATH = "/ss"
 
 # External base URL for redirects and absolute links
 PUBLIC_HOST = os.environ.get("PUBLIC_HOST")
-WEBSERVER_BASEURL = os.environ.get(
-    "SUPERSET_WEBSERVER_BASEURL",
-    f"https://{PUBLIC_HOST}/ss" if PUBLIC_HOST else None,
-)
+# WEBSERVER_BASEURL = os.environ.get(
+#     "SUPERSET_WEBSERVER_BASEURL",
+#     f"https://{PUBLIC_HOST}/ss" if PUBLIC_HOST else None,
+# )
 PREFERRED_URL_SCHEME = "https"
