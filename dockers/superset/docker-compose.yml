@@ -35,8 +35,6 @@ services:
     restart: unless-stopped
 
 
-
-
   postgres-meta:
     image: postgres:17
     environment:
