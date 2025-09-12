@@ -21,7 +21,7 @@ services:
     env_file: .env                                   # 서버 로컬에서 제공
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
-      - SUPERSET_WEBSERVER_BASEURL=https://${PUBLIC_HOST}/ss
+      - SUPERSET_WEBSERVER_BASEURL=https://${PUBLIC_HOST}/superset
     expose:
       - "8088"                                       # 외부 미공개
     volumes:
@@ -44,6 +44,7 @@ services:
     volumes:
       - meta_pg:/var/lib/postgresql/data
     restart: unless-stopped
+
 
 
 
