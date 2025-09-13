@@ -21,7 +21,8 @@ services:
     env_file: .env                                   # 서버 로컬에서 제공
     environment:
       - PUBLIC_HOST=${PUBLIC_HOST}
-      - SUPERSET_WEBSERVER_BASEURL=https://${PUBLIC_HOST}/superset
+      - SUPERSET_WEBSERVER_BASEURL=https://${PUBLIC_HOST}/ss
+      - PYTHONPATH=/app/pythonpath:/app
     expose:
       - "8088"                                       # 외부 미공개
     volumes:
