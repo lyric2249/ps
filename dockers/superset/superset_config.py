@@ -22,20 +22,34 @@ PROXY_FIX_CONFIG = {
     "x_prefix": 1,  # ← X-Forwarded-Prefix 신뢰
 }
 
-# 🔽 서브패스 배포: /ss 로 통일
-APPLICATION_ROOT = "/ss"
-SESSION_COOKIE_PATH = "/ss"
-WTF_CSRF_COOKIE_PATH = "/ss"
+# # --- 서브패스/쿠키 경계 ---
+# APPLICATION_ROOT = "/superset"
+# SESSION_COOKIE_PATH = "/superset"
+# WTF_CSRF_COOKIE_PATH = "/superset"
+
+
+
+
+# # 🔽 서브패스 배포: /ss 로 통일
+# APPLICATION_ROOT = "/ss"
+# SESSION_COOKIE_PATH = "/ss"
+# WTF_CSRF_COOKIE_PATH = "/ss"
 
 # 외부에서 보이는 절대 URL의 베이스
 PUBLIC_HOST = os.environ.get("PUBLIC_HOST")  # 예: song-ps.site
+# WEBSERVER_BASEURL = os.environ.get(
+#     "SUPERSET_WEBSERVER_BASEURL",
+#     (f"https://{PUBLIC_HOST}/ss" if PUBLIC_HOST else None),
+# )
+
 WEBSERVER_BASEURL = os.environ.get(
     "SUPERSET_WEBSERVER_BASEURL",
-    (f"https://{PUBLIC_HOST}/ss" if PUBLIC_HOST else None),
+    (f"https://{PUBLIC_HOST}" if PUBLIC_HOST else None),
 )
+
 
 PREFERRED_URL_SCHEME = "https"
 
-# 로그인 후 이동 (상대경로, /ss/에 맞춤)
-LOGIN_REDIRECT_URL = "/ss/superset/welcome/"
+# # 로그인 후 이동 (상대경로, /ss/에 맞춤)
+# LOGIN_REDIRECT_URL = "/ss/superset/welcome/"
 
