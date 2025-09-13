@@ -4,7 +4,7 @@ ARG BASE_IMAGE=apache/superset
 ARG BASE_TAG=5.0.0
 FROM ${BASE_IMAGE}:${BASE_TAG}
 
-# ➊ OS 빌드 툴/헤더 + MySQL 클라이언트 헤더(사용한다면) 설치
+# ➊ OS 빌드 툴/헤더 + DB 클라이언트 헤더
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential pkg-config libpq-dev \
@@ -12,15 +12,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libmariadb-dev-compat libmariadb-dev \
  && rm -rf /var/lib/apt/lists/*
 
-# ➋ pip 툴체인 최신화 (중요)
+# ➋ (중요) venv에 pip 부트스트랩 → toolchain 업그레이드
+#    - 일부 베이스에서 pip가 비어 있어 /app/.venv/bin/python -m pip 가 실패하므로 ensurepip로 먼저 심습니다.
+#    - 만약 ensurepip가 실패하면 get-pip.py로 폴백.
+RUN python -m ensurepip --upgrade || \
+    (curl -sS https://bootstrap.pypa.io/get-pip.py | python -)
+
+# 이제 pip가 존재하므로 업그레이드 가능
 RUN python -m pip install --no-cache-dir -U pip setuptools wheel
 
-# ➌ (선택) 휠 우선으로 받아서 소스 빌드 회피
+# ➌ (선택) 휠 우선
 ENV PIP_ONLY_BINARY=:all:
 
-# ➍ 파이썬 의존성 설치
+# ➍ 파이썬 의존성
 COPY requirements.txt /tmp/requirements.txt
-RUN pip install --no-cache-dir -r /tmp/requirements.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements.txt
 
 # ➎ Superset 설정/부트 스크립트
 COPY superset_config.py /app/pythonpath/superset_config.py
