@@ -4,8 +4,8 @@ SECRET_KEY = os.environ["SUPERSET_SECRET_KEY"]
 from flask_appbuilder.security.manager import AUTH_DB
 AUTH_TYPE = AUTH_DB
 AUTH_ROLE_PUBLIC = "Public"
-PUBLIC_ROLE_LIKE = None
-# PUBLIC_ROLE_LIKE = "Gamma"  # ← 공개 사용자에게도 권한 부여 (예: 차트 보기)
+# PUBLIC_ROLE_LIKE = None
+PUBLIC_ROLE_LIKE = "Gamma"  # ← 공개 사용자에게도 권한 부여 (예: 차트 보기)
 
 WTF_CSRF_ENABLED = True
 SESSION_COOKIE_SECURE = True
@@ -23,9 +23,9 @@ PROXY_FIX_CONFIG = {
 }
 
 # # --- 서브패스/쿠키 경계 ---
-# APPLICATION_ROOT = "/superset"
-# SESSION_COOKIE_PATH = "/superset"
-# WTF_CSRF_COOKIE_PATH = "/superset"
+# APPLICATION_ROOT = "/ss"
+# SESSION_COOKIE_PATH = "/ss"
+# WTF_CSRF_COOKIE_PATH = "/ss"
 
 
 
@@ -35,17 +35,17 @@ PROXY_FIX_CONFIG = {
 # SESSION_COOKIE_PATH = "/ss"
 # WTF_CSRF_COOKIE_PATH = "/ss"
 
-# 외부에서 보이는 절대 URL의 베이스
-PUBLIC_HOST = os.environ.get("PUBLIC_HOST")  # 예: song-ps.site
+# # 외부에서 보이는 절대 URL의 베이스
+# PUBLIC_HOST = os.environ.get("PUBLIC_HOST")  # 예: song-ps.site
+# # WEBSERVER_BASEURL = os.environ.get(
+# #     "SUPERSET_WEBSERVER_BASEURL",
+# #     (f"https://{PUBLIC_HOST}/ss" if PUBLIC_HOST else None),
+# # )
+
 # WEBSERVER_BASEURL = os.environ.get(
 #     "SUPERSET_WEBSERVER_BASEURL",
 #     (f"https://{PUBLIC_HOST}/ss" if PUBLIC_HOST else None),
 # )
-
-WEBSERVER_BASEURL = os.environ.get(
-    "SUPERSET_WEBSERVER_BASEURL",
-    (f"https://{PUBLIC_HOST}" if PUBLIC_HOST else None),
-)
 
 
 PREFERRED_URL_SCHEME = "https"

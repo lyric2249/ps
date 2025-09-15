@@ -1,0 +1,219 @@
+# host: 현재 repo의 ./dags 디렉터리 (원하는 절대경로로 바꿔도 됨)
+x-airflow-vols: &airflow_vols
+  - ./airflow/dags:/opt/airflow/dags:ro         # ★ DAGs (read-only 권장)
+  - ./airflow/plugins:/opt/airflow/plugins:ro   # (선택) 플러그인
+  - ./airflow/airflow_logs:/opt/airflow/logs            # (선택) 로그
+
+
+
+services:
+
+ # ==========================================================================================
+ # Caddy 구간
+ # ==========================================================================================
+
+  reverse-proxy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - PUBLIC_HOST=${PUBLIC_HOST}
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
+      - ./_caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - superset
+    restart: unless-stopped
+
+
+ # ==========================================================================================
+ # superset 구간
+ # ==========================================================================================
+
+
+  superset:
+    image: ghcr.io/lyric2249/superset-custom:latest   # CI에서 푸시할 이미지
+    env_file: .env                                   # 서버 로컬에서 제공
+    environment:
+      - PUBLIC_HOST=${PUBLIC_HOST}
+      # - SUPERSET_WEBSERVER_BASEURL=https://${PUBLIC_HOST}/ss
+      # - SUPERSET_WEBSERVER_BASEURL=https://${PUBLIC_HOST}/superset
+      - PYTHONPATH=/app/pythonpath:/app
+    expose:
+      - "8088"                                       # 외부 미공개
+    volumes:
+      - superset_home:/app/superset_home
+      - ./superset/superset_config.py:/app/pythonpath/superset_config.py:ro
+      - ./superset/boot.sh:/docker-entrypoint-initdb.d/10_boot.sh:ro
+    depends_on:
+      - postgres-meta
+      - redis
+    user: "1000:1000"
+    restart: unless-stopped
+
+
+
+  postgres-meta:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - meta_pg:/var/lib/postgresql/data
+    ports: ["127.0.0.1:5432:5432"]   # 외부 노출 안함
+    restart: unless-stopped
+
+
+
+
+  postgres-data:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: data_admin
+      POSTGRES_PASSWORD: data_pw
+      POSTGRES_DB: analytics
+    volumes:
+      - data_pg:/var/lib/postgresql/data
+    ports: ["127.0.0.1:5434:5432"]   # 외부 노출 안함
+
+
+
+  redis:
+    image: redis:7
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    restart: unless-stopped
+
+ # ==========================================================================================
+ # AirFlow 구간
+ # ==========================================================================================
+
+
+
+  # --- Airflow: DB/유저 초기화 (one-shot) ---
+  airflow-init:
+    image: apache/airflow:3.0.2-python3.11
+    depends_on:
+      - postgres-meta
+    env_file:
+      - .env              # (선택) 여기서 POSTGRES_USER/DB 주입하면 편함
+    environment:
+      # Airflow 기본
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_pw@postgres-meta:5432/airflow
+      AIRFLOW_UID: "1000"
+      AIRFLOW__WEBSERVER__BASE_URL: "https://airflow.${PUBLIC_HOST}/"
+      AIRFLOW__CORE__DEFAULT_TIMEZONE: Asia/Seoul
+      # 만약 .env 를 안쓴다면 아래 두 줄을 추가해 주세요(예시)
+      # POSTGRES_USER: ${POSTGRES_USER}
+      # POSTGRES_DB: ${POSTGRES_DB}
+    # user: "0:0"   # 초기 스크립트 실행 편의
+    user: "50000:0"   # 초기 스크립트 실행 편의
+    volumes:
+      - ./airflow/boot.sh:/opt/boot.sh:ro
+    entrypoint: ["/bin/bash","-lc"]
+    command: ["/opt/boot.sh"]
+
+
+  # --- Airflow 웹서버 ---
+  airflow-api-server:
+    image: apache/airflow:3.0.2-python3.11
+    depends_on:
+      - postgres-meta
+      - airflow-scheduler
+    command: ["airflow", "api-server"]
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_pw@postgres-meta:5432/airflow
+      AIRFLOW_UID: "1000"
+      AIRFLOW__WEBSERVER__BASE_URL: "https://airflow.${PUBLIC_HOST}/"
+      AIRFLOW__CORE__DEFAULT_TIMEZONE: Asia/Seoul
+      AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+
+      # AIRFLOW__WEBSERVER__WEB_SERVER_PORT: "8080"
+    # command: webserver
+    expose:
+      - "8080"       # Caddy가 프록시로 붙음
+    volumes: *airflow_vols
+    restart: unless-stopped
+    user: "50000:0"   # 초기 스크립트 실행 편의
+
+  # --- Airflow 스케줄러 ---
+  airflow-scheduler:
+    image: apache/airflow:3.0.2-python3.11
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+      postgres-meta:
+        condition: service_started
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_pw@postgres-meta:5432/airflow
+      AIRFLOW_UID: "1000"
+      AIRFLOW__CORE__DEFAULT_TIMEZONE: Asia/Seoul
+    command: scheduler
+    volumes: *airflow_vols
+    restart: unless-stopped
+    user: "50000:0"   # 초기 스크립트 실행 편의
+
+
+  airflow-dag-processor:
+    image: apache/airflow:3.0.2-python3.11
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+      postgres-meta:
+        condition: service_started
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_pw@postgres-meta:5432/airflow
+      AIRFLOW_UID: "1000"
+      AIRFLOW__CORE__DEFAULT_TIMEZONE: Asia/Seoul
+    command:  ["airflow","dag-processor"]
+    volumes: *airflow_vols
+    restart: unless-stopped
+    user: "50000:0"   # 초기 스크립트 실행 편의
+
+
+  # # --- (선택) Triggerer: 센서/데퍼러 작업에 유용 ---
+  # airflow-triggerer:
+  #   image: apache/airflow:3.0.2-python3.11
+  #   depends_on:
+  #     airflow-init:
+  #       condition: service_completed_successfully
+  #     postgres-meta:
+  #       condition: service_started
+  #   environment:
+  #     AIRFLOW__CORE__EXECUTOR: LocalExecutor
+  #     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow_pw@postgres-meta:5432/airflow
+  #     AIRFLOW_UID: "1000"
+  #     AIRFLOW__CORE__DEFAULT_TIMEZONE: Asia/Seoul
+  #   command: triggerer
+  #   volumes: *airflow_vols
+  #   restart: unless-stopped
+
+
+ # ==========================================================================================
+ # 
+ # ==========================================================================================
+
+
+ # ==========================================================================================
+ # 
+ # ==========================================================================================
+
+
+ # ==========================================================================================
+ # 
+ # ==========================================================================================
+
+
+
+volumes:
+  caddy_data:
+  caddy_config:
+  # pg_data:
+  superset_home:
+  meta_pg:
+  data_pg:

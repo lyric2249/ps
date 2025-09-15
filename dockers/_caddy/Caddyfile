@@ -1,0 +1,147 @@
+# www → apex 리다이렉트
+www.{$PUBLIC_HOST} {
+  redir https://{$PUBLIC_HOST}{uri} 308
+}
+
+# apex(song-ps.site) 는 404만 응답
+{$PUBLIC_HOST} {
+  encode zstd gzip
+  respond "not found. None is at here!" 404
+}
+
+# superset 전용 서브도메인
+superset.{$PUBLIC_HOST} {
+  encode zstd gzip
+
+  # (선택) 헬스체크 엔드포인트
+  @health path /health
+  handle @health {
+    respond "OK" 200
+  }
+
+  # 나머지는 Superset 컨테이너로 프록시
+  reverse_proxy superset:8088 {
+    header_up X-Forwarded-Proto {scheme}
+    header_up X-Forwarded-Host {host}
+    header_up Host {host}
+  }
+}
+
+# airflow 서브도메인
+airflow.{$PUBLIC_HOST} {
+  encode zstd gzip
+
+  @health path /health
+  handle @health {
+    respond "OK" 200
+  }
+
+  handle {
+    reverse_proxy airflow-api-server:8080 {
+      header_up X-Forwarded-Proto {scheme}
+      header_up X-Forwarded-Host {host}
+      header_up Host {host}
+    }
+  }
+}
+
+
+
+# # www → non-www
+# www.{$PUBLIC_HOST} {
+#   redir https://{$PUBLIC_HOST}{uri} 308
+# }
+
+# # 메인 가상호스트
+# {$PUBLIC_HOST} {
+#   # /health 는 Caddy가 직접 200
+#   @health path /health
+#   handle @health {
+#     respond "OK" 200
+#   }
+
+#   # /superset 이하만 Superset 컨테이너로 프록시
+#   route /ss* {
+#     reverse_proxy superset:8088 {
+#       header_up X-Forwarded-Proto {scheme}
+#       header_up X-Forwarded-Host {host}
+#       header_up Host {host}
+#       header_up X-Forwarded-Prefix /ss
+#     }
+#   }
+
+#   # 루트 접근은 /superset/로 고정 리다이렉트 (루트 /login/로 새는 것 방지)
+#   # redir / /ss 308
+# }
+
+
+
+# # # www → non-www
+# # www.{$PUBLIC_HOST} {
+# #   redir https://{$PUBLIC_HOST}{uri} 308
+# # }
+
+# # # 루트 전체를 Superset으로 프록시
+# # {$PUBLIC_HOST} {
+# #   # /health 는 Caddy가 직접 200
+# #   @health path /health
+# #   handle @health {
+# #     respond "OK" 200
+# #   }
+
+# #   # 나머지는 모두 Superset으로
+# #   handle {
+# #     reverse_proxy superset:8088 {
+# #       header_up X-Forwarded-Proto {scheme}
+# #       header_up X-Forwarded-Host {host}
+# #       # ❌ header_up X-Forwarded-Port {server_port}  <- 삭제!
+# #       # (필요시) header_up X-Forwarded-Port {http.request.port}
+# #       header_up Host {host}
+# #     }
+# #   }
+# # }
+
+
+
+# # # /superset 하위만 Superset으로 프록시
+# # route /superset* {
+# #   header {
+# #     # 클라이언트로 돌려보낼 때도 접두경로를 고정시키기 위해 추가(캐시/보안 헤더는 생략)
+# #   }
+# #   reverse_proxy superset:8088 {
+# #     header_up X-Forwarded-Proto {scheme}
+# #     header_up X-Forwarded-Host {host}
+# #     header_up Host {host}
+# #     header_up X-Forwarded-Prefix /superset
+# #   }
+# # }
+
+# # # 헬스체크 등 기타 루트 경로 처리
+# # @health path /health
+# # handle @health {
+# #   respond "OK" 200
+# # }
+# # # (선택) 루트 접근을 /superset/로 안내하고 싶으면:
+# # redir / /superset/ 308
+
+
+# # # 루트 전체를 Superset으로 프록시
+# # {$PUBLIC_HOST} {
+# #   # /health 는 Caddy가 직접 200
+# #   @health path /health
+# #   handle @health {
+# #     respond "OK" 200
+# #   }
+
+# #   # 나머지는 모두 Superset으로
+# #   handle {
+# #     reverse_proxy superset:8088 {
+# #       header_up X-Forwarded-Proto {scheme}
+# #       header_up X-Forwarded-Host {host}
+# #       # ❌ header_up X-Forwarded-Port {server_port}  <- 삭제!
+# #       # (필요시) header_up X-Forwarded-Port {http.request.port}
+# #       header_up Host {host}
+# #     }
+# #   }
+# # }
+
