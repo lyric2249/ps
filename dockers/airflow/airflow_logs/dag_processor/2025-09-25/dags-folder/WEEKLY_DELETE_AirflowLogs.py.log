@@ -1,0 +1,10 @@
+{"timestamp":"2025-09-25T14:17:11.624503","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:17:43.999119","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:18:15.030589","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:18:46.040536","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:19:17.083175","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:19:48.158047","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:20:19.125480","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:20:50.097942","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:21:20.325663","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}
+{"timestamp":"2025-09-25T14:21:51.385800","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/WEEKLY_DELETE_AirflowLogs.py","logger":"airflow.models.dagbag.DagBag"}

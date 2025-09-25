@@ -1,51 +1,23 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-echo "[airflow-init] start"
-
-# 필수 환경변수 확인(없으면 즉시 실패)
-: "${POSTGRES_USER:?POSTGRES_USER is required}"
-: "${POSTGRES_DB:?POSTGRES_DB is required}"
-
-pip install --no-cache-dir "apache-airflow-providers-fab==2.4.2"
+# : "${AIRFLOW__DATABASE__SQL_ALCHEMY_CONN:?AIRFLOW DB URI missing}"
 
 
 
-# psql 비밀번호 전달
-export PGPASSWORD="$POSTGRES_PASSWORD"
-
-# Postgres 준비 대기
-until pg_isready -h postgres-meta -p 5432 -U "$POSTGRES_USER"; do
+# DB 대기 (메타 Postgres)
+until pg_isready -h postgres-meta -p 5432 -t 2; do
   echo "[airflow-init] waiting for postgres-meta:5432 ..."
   sleep 1
 done
 
-PSQL="psql -h postgres-meta -U $POSTGRES_USER -d $POSTGRES_DB -v ON_ERROR_STOP=1"
+# Airflow DB 준비 (이미 초기화면 check가 0, 아니면 migrate 수행)
+echo "[airflow-init] DB: $(airflow config get-value database sql_alchemy_conn)"
+airflow db check || airflow db migrate
 
-# Airflow용 ROLE/DB 생성(존재하면 skip)
-PSQL="psql -h postgres-meta -U $POSTGRES_USER -d $POSTGRES_DB -v ON_ERROR_STOP=1"
+# (선택) 관리자 계정 등 초기화
+# airflow users create --role Admin --username admin --password '***' --email a@b.c --firstname A --lastname B || true
 
-$PSQL <<'SQL'
--- 1) role은 DO 블록에서 생성 (OK)
-DO $$
-BEGIN
-  IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = 'airflow') THEN
-    CREATE ROLE airflow LOGIN PASSWORD 'airflow_pw';
-  END IF;
-END$$;
-
--- 2) DB 생성은 블록 밖에서 조건부 + \gexec
-SELECT 'CREATE DATABASE airflow OWNER airflow'
-WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'airflow') \gexec
-SQL
-
-
-# DB 마이그레이션 (필요 시 init 백업)
-if ! airflow db migrate; then
-  echo "[airflow-init] migrate failed, trying 'airflow db init'..."
-  airflow db init
-fi
+airflow users create --role Admin --admin ${AIRFLOW_ADMIN_USER} --password ${AIRFLOW_ADMIN_PASSWORD} --email a@b.c --firstname A --lastname B || true
 
 echo "[airflow-init] done."
-
-
