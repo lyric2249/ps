@@ -1,0 +1,12 @@
+db.getUser("admin")
+use admin
+db.getUser("admin")
+use mongoadmin1234
+use admin
+db.mongoadmin1234
+db.admin
+db admin
+"
+use admin
+db.runCommmand({connectionStatus:1})
+show dbs

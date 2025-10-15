@@ -1,0 +1,24 @@
+{
+}{
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.indexing": false,
+  "python.analysis.exclude": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/.venv/**",
+    "**/venv/**",
+    "**/dist/**",
+    "**/build/**",
+    "**/.mypy_cache/**",
+    "**/.pytest_cache/**"
+  ],
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/.venv/**": true,
+    "**/venv/**": true,
+    "**/dist/**": true,
+    "**/build/**": true
+  },
+  "python.analysis.typeCheckingMode": "basic"
+}

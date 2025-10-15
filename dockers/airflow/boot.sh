@@ -16,8 +16,10 @@ echo "[airflow-init] DB: $(airflow config get-value database sql_alchemy_conn)"
 airflow db check || airflow db migrate
 
 # (선택) 관리자 계정 등 초기화
-# airflow users create --role Admin --username admin --password '***' --email a@b.c --firstname A --lastname B || true
+# airflow users create --role Admin --admin ${AIRFLOW_ADMIN_USER} --password ${AIRFLOW_ADMIN_PASSWORD} --email a@b.c --firstname A --lastname B || true
 
-airflow users create --role Admin --admin ${AIRFLOW_ADMIN_USER} --password ${AIRFLOW_ADMIN_PASSWORD} --email a@b.c --firstname A --lastname B || true
+airflow db migrate
 
 echo "[airflow-init] done."
+
+

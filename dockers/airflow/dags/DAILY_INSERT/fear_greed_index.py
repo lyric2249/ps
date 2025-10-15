@@ -1,3 +1,4 @@
+import os
 import datetime
 from airflow import DAG
 from airflow.operators.empty import EmptyOperator
@@ -8,6 +9,8 @@ import sqlalchemy as sa
 
 # from sqlalchemy import create_engine, text
 from sqlalchemy.types import VARCHAR, INTEGER, FLOAT, DateTime
+from sqlalchemy.dialects.postgresql import TIMESTAMP, DOUBLE_PRECISION
+
 import requests
 
 
@@ -48,7 +51,7 @@ def insert_values(**context):
 
     # conn = BaseHook.get_connection(CONN_ID)
     # uri = conn.get_uri()  # e.g. postgresql+psycopg://app:secret@postgres-meta:5432/appdb
-    uri = "postgresql+psycopg2://psqladmin:psqladmin@postgres-data/superset"
+    uri = f"postgresql+psycopg2://{os.getenv('POSTGRES_USER')}:{os.getenv('POSTGRES_PASSWORD')}@postgres-data/superset"
     engine = sa.create_engine(uri, future=True)
 
     # with engine.begin() as conn:
@@ -56,8 +59,27 @@ def insert_values(**context):
     #     # conn.execute(text('drop table public.fear_greed_index;'))
 
     # 최초 생성 시 dtype 명시 가능
-    df.head(0).to_sql("fear_greed_index", engine, schema="public", if_exists="replace", index=False, dtype={"date": DateTime, "fear_greed_index": FLOAT, "rating": VARCHAR(50)})
-    df.to_sql("fear_greed_index", engine, schema="public", if_exists="append", index=False, method="multi", chunksize=10_000)
+    # df.head(0).to_sql("fear_greed_index", engine, schema="public", if_exists="replace", index=False, dtype={"date": TIMESTAMP(timezone=False), "fear_greed_index": DOUBLE_PRECISION(), "rating": VARCHAR(50)})
+    # df.to_sql("fear_greed_index", engine, schema="public", if_exists="append", index=False, method="multi", chunksize=10_000)
+
+    with engine.begin() as conn:
+        # df.head(0).to_sql(
+        #     "fear_greed_index",
+        #     con=conn,
+        #     schema="public",
+        #     if_exists="replace",
+        #     index=False,
+        #     dtype={"date": TIMESTAMP(timezone=False), "fear_greed_index": DOUBLE_PRECISION(), "rating": VARCHAR(50)},
+        # )
+        df.to_sql(
+            "fear_greed_index",
+            con=conn,
+            schema="public",
+            if_exists="append",
+            index=False,
+            method="multi",
+            chunksize=10_000,
+        )
 
     return 0
 

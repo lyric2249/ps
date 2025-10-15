@@ -1,0 +1,29 @@
+{"timestamp":"2025-10-13T22:50:40.678733Z","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-10-13T22:50:40.680113Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/DAILY_INSERT/stocks_info.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-10-13T22:50:43.360643Z","level":"warning","event":"The `airflow.operators.empty.EmptyOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.empty.EmptyOperator'`.","category":"DeprecatedImportWarning","filename":"/opt/airflow/dags/DAILY_INSERT/stocks_info.py","lineno":16,"logger":"py.warnings"}
+{"timestamp":"2025-10-13T22:50:43.360954Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/opt/airflow/dags/DAILY_INSERT/stocks_info.py","lineno":17,"logger":"py.warnings"}
+{"timestamp":"2025-10-13T22:50:47.415557Z","level":"warning","event":"This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.","category":"UserWarning","filename":"/opt/airflow/dags/DAILY_INSERT/stocks_info.py","lineno":110,"logger":"py.warnings"}
+{"timestamp":"2025-10-13T22:50:48.472060Z","level":"info","event":"Error processing AACB: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:50:48.472384Z","level":"info","event":"0:00:01.028687","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:50:57.483170Z","level":"info","event":"Error processing AACBR: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:50:57.483486Z","level":"info","event":"0:00:10.039864","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:07.498592Z","level":"info","event":"Error processing AACBU: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:07.498969Z","level":"info","event":"0:00:20.055318","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:17.512685Z","level":"info","event":"Error processing AACG: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:17.512969Z","level":"info","event":"0:00:30.069214","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:27.512579Z","level":"info","event":"Error processing AACI: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:27.512875Z","level":"info","event":"0:00:40.069231","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:37.522263Z","level":"info","event":"Error processing AACIU: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:37.522561Z","level":"info","event":"0:00:50.079015","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:47.533864Z","level":"info","event":"Error processing AACIW: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:47.534120Z","level":"info","event":"0:01:00.090598","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:57.546086Z","level":"info","event":"Error processing AAL: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:51:57.546435Z","level":"info","event":"0:01:10.102776","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:52:07.553555Z","level":"info","event":"Error processing AAME: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:52:07.553752Z","level":"info","event":"0:01:20.109953","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:52:17.564401Z","level":"info","event":"Error processing AAOI: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:52:17.564733Z","level":"info","event":"0:01:30.121081","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:52:27.574758Z","level":"info","event":"Error processing AAON: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:52:27.575063Z","level":"info","event":"0:01:40.131476","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:52:37.584540Z","level":"info","event":"Error processing AAPG: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-13T22:52:37.584802Z","level":"info","event":"0:01:50.141266","logger":"task.stdout"}

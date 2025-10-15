@@ -1,2 +1,7 @@
 .env
-
+.secrets
+/dockers/mongo/data/
+/dockers/mongo/**/.mongodb/
+/dockers/mongo/**/mongosh*
+/dockers/airflow/airflow_logs
+/dockers/airflow/dags

@@ -1,0 +1,171 @@
+{"timestamp":"2025-10-12T15:13:09.480915Z","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
+{"timestamp":"2025-10-12T15:13:09.482703Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/DAILY_INSERT/stocks_info.py","logger":"airflow.models.dagbag.DagBag","filename":"dagbag.py","lineno":593}
+{"timestamp":"2025-10-12T15:13:12.328125Z","level":"warning","event":"The `airflow.operators.empty.EmptyOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.empty.EmptyOperator'`.","category":"DeprecatedImportWarning","filename":"/opt/airflow/dags/DAILY_INSERT/stocks_info.py","lineno":16,"logger":"py.warnings"}
+{"timestamp":"2025-10-12T15:13:12.328442Z","level":"warning","event":"The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.","category":"DeprecatedImportWarning","filename":"/opt/airflow/dags/DAILY_INSERT/stocks_info.py","lineno":17,"logger":"py.warnings"}
+{"timestamp":"2025-10-12T15:13:16.406085Z","level":"warning","event":"This pattern is interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.","category":"UserWarning","filename":"/opt/airflow/dags/DAILY_INSERT/stocks_info.py","lineno":110,"logger":"py.warnings"}
+{"timestamp":"2025-10-12T15:13:17.475603Z","level":"info","event":"Error processing AACB: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:17.475849Z","level":"info","event":"0:00:01.041578","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:26.482543Z","level":"info","event":"Error processing AACBR: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:26.482787Z","level":"info","event":"0:00:10.048540","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:36.493967Z","level":"info","event":"Error processing AACBU: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:36.494298Z","level":"info","event":"0:00:20.059994","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:46.502567Z","level":"info","event":"Error processing AACG: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:46.502781Z","level":"info","event":"0:00:30.068649","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:56.513822Z","level":"info","event":"Error processing AACI: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:13:56.514219Z","level":"info","event":"0:00:40.079819","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:06.524389Z","level":"info","event":"Error processing AACIU: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:06.524716Z","level":"info","event":"0:00:50.090323","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:16.534480Z","level":"info","event":"Error processing AACIW: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:16.534821Z","level":"info","event":"0:01:00.100376","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:26.541404Z","level":"info","event":"Error processing AAL: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:26.541631Z","level":"info","event":"0:01:10.107421","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:36.554376Z","level":"info","event":"Error processing AAME: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:36.554603Z","level":"info","event":"0:01:20.120431","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:46.561837Z","level":"info","event":"Error processing AAOI: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:46.562158Z","level":"info","event":"0:01:30.127841","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:56.565621Z","level":"info","event":"Error processing AAON: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:14:56.565954Z","level":"info","event":"0:01:40.131659","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:06.576557Z","level":"info","event":"Error processing AAPG: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:06.576834Z","level":"info","event":"0:01:50.142586","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:16.586316Z","level":"info","event":"Error processing AAPL: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:16.586679Z","level":"info","event":"0:02:00.152259","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:26.601071Z","level":"info","event":"Error processing AARD: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:26.601380Z","level":"info","event":"0:02:10.167022","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:36.606703Z","level":"info","event":"Error processing ABAT: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:36.607170Z","level":"info","event":"0:02:20.172633","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:46.614671Z","level":"info","event":"Error processing ABCL: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:46.614949Z","level":"info","event":"0:02:30.180658","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:56.616706Z","level":"info","event":"Error processing ABEO: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:15:56.617043Z","level":"info","event":"0:02:40.182699","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:06.627946Z","level":"info","event":"Error processing ABL: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:06.628247Z","level":"info","event":"0:02:50.193988","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:16.638336Z","level":"info","event":"Error processing ABLLL: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:16.638566Z","level":"info","event":"0:03:00.204360","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:26.647218Z","level":"info","event":"Error processing ABLV: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:26.647535Z","level":"info","event":"0:03:10.213165","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:36.657319Z","level":"info","event":"Error processing ABLVW: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:36.657780Z","level":"info","event":"0:03:20.223279","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:46.666580Z","level":"info","event":"Error processing ABNB: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:46.666859Z","level":"info","event":"0:03:30.232507","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:56.676742Z","level":"info","event":"Error processing ABOS: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:16:56.677057Z","level":"info","event":"0:03:40.242813","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:06.683263Z","level":"info","event":"Error processing ABPWW: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:06.683510Z","level":"info","event":"0:03:50.249321","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:16.692391Z","level":"info","event":"Error processing ABSI: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:16.692619Z","level":"info","event":"0:04:00.258370","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:26.698955Z","level":"info","event":"Error processing ABTC: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:26.699368Z","level":"info","event":"0:04:10.264877","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:36.709351Z","level":"info","event":"Error processing ABTS: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:36.709600Z","level":"info","event":"0:04:20.275410","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:46.711378Z","level":"info","event":"Error processing ABUS: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:46.711653Z","level":"info","event":"0:04:30.277422","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:56.724117Z","level":"info","event":"Error processing ABVC: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:17:56.724364Z","level":"info","event":"0:04:40.290165","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:06.724750Z","level":"info","event":"Error processing ABVX: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:06.725123Z","level":"info","event":"0:04:50.290679","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:16.733952Z","level":"info","event":"Error processing ACAD: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:16.734211Z","level":"info","event":"0:05:00.299991","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:26.747698Z","level":"info","event":"Error processing ACB: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:26.748294Z","level":"info","event":"0:05:10.313498","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:36.752775Z","level":"info","event":"Error processing ACDC: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:36.753172Z","level":"info","event":"0:05:20.318711","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:46.752296Z","level":"info","event":"Error processing ACFN: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:46.752528Z","level":"info","event":"0:05:30.318331","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:56.765129Z","level":"info","event":"Error processing ACGL: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:18:56.765473Z","level":"info","event":"0:05:40.330972","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:06.773776Z","level":"info","event":"Error processing ACGLN: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:06.774102Z","level":"info","event":"0:05:50.339834","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:16.778726Z","level":"info","event":"Error processing ACGLO: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:16.779077Z","level":"info","event":"0:06:00.344691","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:26.787774Z","level":"info","event":"Error processing ACHC: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:26.787984Z","level":"info","event":"0:06:10.353690","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:36.798252Z","level":"info","event":"Error processing ACHV: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:36.798511Z","level":"info","event":"0:06:20.364298","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:46.807577Z","level":"info","event":"Error processing ACIC: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:46.807801Z","level":"info","event":"0:06:30.373639","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:56.818598Z","level":"info","event":"Error processing ACIU: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:19:56.818808Z","level":"info","event":"0:06:40.384678","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:06.829845Z","level":"info","event":"Error processing ACIW: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:06.830280Z","level":"info","event":"0:06:50.395673","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:16.838503Z","level":"info","event":"Error processing ACLS: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:16.838738Z","level":"info","event":"0:07:00.404548","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:26.852187Z","level":"info","event":"Error processing ACLX: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:26.852401Z","level":"info","event":"0:07:10.418222","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:36.859402Z","level":"info","event":"Error processing ACMR: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:36.859728Z","level":"info","event":"0:07:20.425411","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:46.868591Z","level":"info","event":"Error processing ACNB: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:46.868850Z","level":"info","event":"0:07:30.434672","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:56.880090Z","level":"info","event":"Error processing ACNT: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:20:56.880317Z","level":"info","event":"0:07:40.446126","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:06.886276Z","level":"info","event":"Error processing ACOG: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:06.886540Z","level":"info","event":"0:07:50.452273","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:16.896528Z","level":"info","event":"Error processing ACON: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:16.896762Z","level":"info","event":"0:08:00.462584","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:26.907002Z","level":"info","event":"Error processing ACONW: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:26.907286Z","level":"info","event":"0:08:10.472913","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:36.910664Z","level":"info","event":"Error processing ACRS: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:36.910940Z","level":"info","event":"0:08:20.476688","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:46.922294Z","level":"info","event":"Error processing ACRV: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:46.922544Z","level":"info","event":"0:08:30.488268","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:56.922484Z","level":"info","event":"Error processing ACT: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:21:56.922748Z","level":"info","event":"0:08:40.488544","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:06.931725Z","level":"info","event":"Error processing ACTG: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:06.932006Z","level":"info","event":"0:08:50.497773","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:16.936582Z","level":"info","event":"Error processing ACTU: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:16.936829Z","level":"info","event":"0:09:00.502644","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:26.945014Z","level":"info","event":"Error processing ACXP: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:26.945216Z","level":"info","event":"0:09:10.511060","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:36.955330Z","level":"info","event":"Error processing ADAG: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:36.955797Z","level":"info","event":"0:09:20.521289","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:46.966364Z","level":"info","event":"Error processing ADAM: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:46.966660Z","level":"info","event":"0:09:30.532396","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:56.974044Z","level":"info","event":"Error processing ADAMG: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:22:56.974269Z","level":"info","event":"0:09:40.540075","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:06.983772Z","level":"info","event":"Error processing ADAMH: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:06.984000Z","level":"info","event":"0:09:50.549810","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:16.993842Z","level":"info","event":"Error processing ADAMI: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:16.994175Z","level":"info","event":"0:10:00.559863","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:27.005977Z","level":"info","event":"Error processing ADAML: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:27.006239Z","level":"info","event":"0:10:10.572004","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:37.007533Z","level":"info","event":"Error processing ADAMM: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:37.007783Z","level":"info","event":"0:10:20.573594","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:47.017091Z","level":"info","event":"Error processing ADAMN: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:47.017432Z","level":"info","event":"0:10:30.582992","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:57.021593Z","level":"info","event":"Error processing ADAMZ: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:23:57.021917Z","level":"info","event":"0:10:40.587546","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:07.026273Z","level":"info","event":"Error processing ADBE: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:07.026670Z","level":"info","event":"0:10:50.592344","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:17.039123Z","level":"info","event":"Error processing ADEA: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:17.039422Z","level":"info","event":"0:11:00.605131","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:27.053081Z","level":"info","event":"Error processing ADI: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:27.053342Z","level":"info","event":"0:11:10.619024","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:37.060721Z","level":"info","event":"Error processing ADMA: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:37.061001Z","level":"info","event":"0:11:20.626735","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:47.070717Z","level":"info","event":"Error processing ADP: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:47.071074Z","level":"info","event":"0:11:30.636735","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:57.080206Z","level":"info","event":"Error processing ADPT: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:24:57.080454Z","level":"info","event":"0:11:40.646271","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:07.091545Z","level":"info","event":"Error processing ADSE: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:07.091943Z","level":"info","event":"0:11:50.657538","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:17.101917Z","level":"info","event":"Error processing ADSEW: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:17.102274Z","level":"info","event":"0:12:00.667823","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:27.101160Z","level":"info","event":"Error processing ADSK: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:27.101501Z","level":"info","event":"0:12:10.667107","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:37.104044Z","level":"info","event":"Error processing ADTN: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:37.104254Z","level":"info","event":"0:12:20.670104","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:47.117860Z","level":"info","event":"Error processing ADTX: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:47.118274Z","level":"info","event":"0:12:30.683805","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:57.125125Z","level":"info","event":"Error processing ADUR: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:25:57.125385Z","level":"info","event":"0:12:40.691109","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:07.134406Z","level":"info","event":"Error processing ADUS: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:07.134750Z","level":"info","event":"0:12:50.700407","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:17.146143Z","level":"info","event":"Error processing ADV: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:17.146441Z","level":"info","event":"0:13:00.712063","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:27.157291Z","level":"info","event":"Error processing ADVM: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:27.157579Z","level":"info","event":"0:13:10.723261","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:37.160642Z","level":"info","event":"Error processing ADVWW: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:37.160869Z","level":"info","event":"0:13:20.726718","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:47.170938Z","level":"info","event":"Error processing ADXN: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:47.171175Z","level":"info","event":"0:13:30.736956","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:57.179573Z","level":"info","event":"Error processing AEBI: Authentication failed., full error: {'ok': 0.0, 'errmsg': 'Authentication failed.', 'code': 18, 'codeName': 'AuthenticationFailed'}","logger":"task.stdout"}
+{"timestamp":"2025-10-12T15:26:57.179808Z","level":"info","event":"0:13:40.745681","logger":"task.stdout"}

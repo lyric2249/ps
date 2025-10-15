@@ -1,1 +1,54 @@
 https://help.ovhcloud.com/csm/en-gb-vps-security-tips?id=kb_article_view&sysparm_article=KB0047706
+
+pkill -f vscode-server
+
+ps_mem
+
+```
+ps -eo pid,ppid,user,%mem,rss,cmd --sort=-rss \
+| head -n 30 \
+| awk '{print $1}' \
+| while read p; do
+  echo "== PID $p ==";
+  cat /proc/$p/cgroup | grep -E 'docker|containerd' || echo "(host)";
+  tr '\0' ' ' </proc/$p/cmdline | sed 's/^/CMD: /';
+  pmap -x $p | tail -n 1;
+  echo;
+done
+```
+
+
+```
+df_ticker_infos = pd.DataFrame(ticker_infos)
+df_ticker_infos.to_json("ticker_infos.json", orient="records", force_ascii=False, indent=4)
+```
+
+
+'''
+import pickle
+
+# 저장
+
+# for name, var in (('institution_rates', institution_rates), ('ticker_holders', ticker_holders), ('callss', callss), ('putss', putss)):
+#     with open(f"{name}.pkl", "wb") as f:   # 반드시 'wb' (write binary)
+#         pickle.dump(var, f)
+
+institution_rates, ticker_holders, callss, putss = 0, 0, 0, 0
+
+# for name, var in (('institution_rates', institution_rates), ('ticker_holders', ticker_holders), ('callss', callss), ('putss', putss)):
+#     with open(f"_data/stocks/{name}.pkl", "rb") as f:   # 반드시 'wb' (write binary)
+#         var = pickle.load(f)
+
+# for name, var in (('', institution_rates), ('ticker_holders', ticker_holders), ('callss', callss), ('putss', putss)):
+with open(f"_data/stocks/institution_rates.pkl", "rb") as f:   # 반드시 'wb' (write binary)
+    institution_rates = pickle.load(f)
+
+with open(f"_data/stocks/ticker_holders.pkl", "rb") as f:   # 반드시 'wb' (write binary)
+    ticker_holders = pickle.load(f)
+
+with open(f"_data/stocks/callss.pkl", "rb") as f:   # 반드시 'wb' (write binary)
+    callss = pickle.load(f)
+
+with open(f"_data/stocks/putss.pkl", "rb") as f:   # 반드시 'wb' (write binary)
+    putss = pickle.load(f)
+'''

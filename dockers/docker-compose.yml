@@ -1,37 +1,28 @@
 
 # 중복 제거용 앵커
-x-airflow-image: &airflow_image apache/airflow:3.0.2-python3.11
+# x-airflow-image: &airflow_image apache/airflow:3.1.0-python3.13
+# x-airflow-image: &airflow_image apache/airflow:3.1.0-python3.12
+x-airflow-image: &airflow_image apache/airflow:2.11.0-python3.12
+
+
+
 
 x-airflow-vols: &airflow_vols
   - ./airflow/dags:/opt/airflow/dags:ro
   - ./airflow/plugins:/opt/airflow/plugins:ro
+  - ./airflow/requirements.txt:/opt/airflow/requirements.txt:ro
   - ./airflow/airflow_logs:/opt/airflow/logs
+  - ./airflow/webserver_config.py:/opt/airflow/webserver_config.py:ro
+  - ./airflow/boot.sh:/opt/boot.sh:ro
 
 # Airflow 공통 환경변수 (DB URI는 .env에서 AIRFLOW_DB_URI로 넘김 권장)
 x-airflow-common: &airflow_common
   image: *airflow_image
-  environment:
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW_DB_URI}
-    AIRFLOW__CORE__DEFAULT_TIMEZONE: Asia/Seoul
-    AIRFLOW_UID: "1000"
-    # AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__WEBSERVER__BASE_URL: https://airflow.${PUBLIC_HOST}/
-    AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
-    AIRFLOW__API_AUTH__JWT_SECRET: 'f5d251181064f43dc30fcea1a5bf5dd1'
-    # AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
-    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://airflow-api-server:8080/execution/'
-    # AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-    AIRFLOW__CORE__LOGGING_LEVEL: DEBUG
-    AIRFLOW__SCHEDULER__LOGGING_LEVEL: DEBUG
-    # httpx 라이브러리 디버그 출력
-    PYTHONLOGGING_HTTPX: 1
-    DUMB_INIT_SETSID: "0"
-
-
-
+  env_file: [.env]
   user: "50000:0"
   networks: [edge]
   restart: unless-stopped
+  volumes: *airflow_vols
 
 
 # Postgres 공통
@@ -81,13 +72,30 @@ services:
     
 
 
+
+  # =========================
+  # mongo
+  # =========================
+  mongo:
+    image: mongo:7
+    container_name: mongo
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_PASSWORD}
+    # expose: ["27017"]
+    ports: ["127.0.0.1:27017:27017"]   # 로컬 전용
+    volumes:
+      - ./mongo/data/db:/data/db
+    networks: [edge]
+
+
   # =========================
   # Redis
   # =========================
   redis:
     image: redis:7.2-bookworm
     command: ["redis-server", "--save", "", "--appendonly", "no"]
-    networks: [edge]
     expose: ["6379"]
     restart: always
     healthcheck:
@@ -95,6 +103,7 @@ services:
       interval: 5s
       timeout: 3s
       retries: 20
+    networks: [edge]
 
   # =========================
   # flower
@@ -128,7 +137,7 @@ services:
     environment:
       PUBLIC_HOST: ${PUBLIC_HOST}
       PYTHONPATH: /app/pythonpath:/app
-      SUPERSET_WEBSERVER_BASEURL: *superset_baseurl
+      SUPERSET_API_BASEURL: *superset_baseurl
       SQLALCHEMY_DATABASE_URI: ${SUPERSET_DB_URI}
       SUPERSET__SQLALCHEMY_DATABASE_URI: ${SUPERSET_DB_URI}
       # (선택) Redis 캐시/큐 사용 시 superset_config.py에서 연결
@@ -150,83 +159,168 @@ services:
 
 
   # =========================
-  # Airflow (기본: LocalExecutor)
+  # Airflow 211 (기본: LocalExecutor)
   # =========================
-  airflow-init:
+  airflow-211-init:
     <<: *airflow_common
-    depends_on:
-      postgres-meta:
-        condition: service_healthy
-    env_file: [.env]
-    user: "50000:0"
-    volumes:
-      - ./airflow/boot.sh:/opt/boot.sh:ro
+    # env_file: [.env]
     entrypoint: ["/bin/bash","-lc"]
-    command: ["/opt/boot.sh"]
+    command: ["airflow db migrate;"]
+    # command: >
+    #   -lc "
+    #   set -euo pipefail;
+    #   echo '[init] running airflow db migrate';
+    #   airflow db migrate;
+    #   echo '[init] creating admin user (idempotent)';
+    #   airflow users create
+    #     --username ${AIRFLOW_ADMIN_USER:-admin}
+    #     --password ${AIRFLOW_ADMIN_PASSWORD:-admin}
+    #     --firstname Admin --lastname User
+    #     --role Admin --email ${AIRFLOW_ADMIN_EMAIL:-admin@example.com} || true;
+    #   echo '[init] done';
+    #   "
     restart: "no"                  # ← init 컨테이너는 재시작 금지
-
-
-
-
-  airflow-api-server:
-    <<: *airflow_common
     depends_on:
       postgres-meta:
         condition: service_healthy
-      airflow-scheduler:
-        condition: service_started
-    command: ["airflow", "api-server"]
+
+
+  airflow-211-webserver:
+    <<: *airflow_common
+    container_name: airflow-webserver
+    ports:
+      - "8080:8080"
+    command: >
+      bash -lc "exec airflow webserver"
+    # command: ["bash","-lc","exec /home/airflow/.local/bin/airflow webserver"]
     healthcheck:
-      test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/version"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
-    # ports: ["0.0.0.0:8080:8080"]   # 로컬 전용
-    expose: ["8080"]
-    volumes: *airflow_vols
-
-
-  airflow-scheduler:
-    <<: *airflow_common
+      test: ["CMD-SHELL", "curl -sf http://localhost:8080/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
     depends_on:
       postgres-meta:
         condition: service_healthy
-      airflow-init:
+      airflow-211-init:
         condition: service_completed_successfully
-    # command: ["/bin/bash","-lc","airflow db check || airflow db migrate; exec airflow scheduler"]
-    # command: ["scheduler", "db", "migrate"]
-    command: ["scheduler"]
-    volumes: *airflow_vols
 
 
-
-
-
-  airflow-dag-processor:
+  airflow-211-scheduler:
     <<: *airflow_common
+    container_name: airflow-scheduler
+    command: >
+      bash -lc "exec airflow scheduler"
+    # command: ["bash","-lc","exec /home/airflow/.local/bin/airflow scheduler"]
+    healthcheck:
+      test: ["CMD-SHELL", "bash -lc 'pgrep -f \"airflow scheduler\" >/dev/null'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
     depends_on:
       postgres-meta:
         condition: service_healthy
-      airflow-init:
+      airflow-211-init:
         condition: service_completed_successfully
-    command: ["airflow","dag-processor"]
-    volumes: *airflow_vols
+
+
+  airflow-211-triggerer:
+    <<: *airflow_common
+    container_name: airflow-triggerer
+    command: >
+      bash -lc "exec airflow triggerer"
+    # command: ["bash","-lc","exec /home/airflow/.local/bin/airflow triggerer"]
+    healthcheck:
+      test: ["CMD-SHELL", "bash -lc 'pgrep -f \"airflow triggerer\" >/dev/null'"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    restart: unless-stopped
+    depends_on:
+      postgres-meta:
+        condition: service_healthy
+      airflow-211-init:
+        condition: service_completed_successfully
 
 
 
 
 
-  # airflow-worker:
+  # # =========================
+  # # Airflow (기본: LocalExecutor)
+  # # =========================
+  # airflow-init:
   #   <<: *airflow_common
-  #   command: celery worker
-  #   restart: always
   #   depends_on:
-  #     airflow-api-server:
+  #     postgres-meta:
+  #       condition: service_healthy
+  #   env_file: [.env]
+  #   user: "50000:0"
+  #   entrypoint: ["/bin/bash","-lc"]
+  #   command: ["/opt/boot.sh"]
+  #   restart: "no"                  # ← init 컨테이너는 재시작 금지
+
+
+
+
+  # airflow-api-server:
+  #   <<: *airflow_common
+  #   depends_on:
+  #     postgres-meta:
+  #       condition: service_healthy
+  #     airflow-scheduler:
+  #       condition: service_started
+  #   command: ["airflow", "api-server"]
+  #   healthcheck:
+  #     test: ["CMD", "curl", "--fail", "http://localhost:8080/api/v2/version"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 5
+  #     start_period: 30s
+  #   # ports: ["0.0.0.0:8080:8080"]   # 로컬 전용
+  #   expose: ["8080"]
+
+
+  # airflow-scheduler:
+  #   <<: *airflow_common
+  #   depends_on:
+  #     postgres-meta:
   #       condition: service_healthy
   #     airflow-init:
   #       condition: service_completed_successfully
-  #   volumes: *airflow_vols
+  #   # command: ["/bin/bash","-lc","airflow db check || airflow db migrate; exec airflow scheduler"]
+  #   # command: ["scheduler", "db", "migrate"]
+  #   command: ["scheduler"]
+
+
+
+
+
+  # airflow-dag-processor:
+  #   <<: *airflow_common
+  #   depends_on:
+  #     postgres-meta:
+  #       condition: service_healthy
+  #     airflow-init:
+  #       condition: service_completed_successfully
+  #   command: ["airflow","dag-processor"]
+    
+
+
+
+
+
+  # # airflow-worker:
+  # #   <<: *airflow_common
+  # #   command: celery worker
+  # #   restart: always
+  # #   depends_on:
+  # #     airflow-api-server:
+  # #       condition: service_healthy
+  # #     airflow-init:
+  # #       condition: service_completed_successfully
+  # #   volumes: *airflow_vols
 
 
 
