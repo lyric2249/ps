@@ -198,6 +198,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 12
+      start_period: 60s
     restart: unless-stopped
     depends_on:
       postgres-meta:
@@ -213,10 +214,11 @@ services:
       bash -lc "exec airflow scheduler"
     # command: ["bash","-lc","exec /home/airflow/.local/bin/airflow scheduler"]
     healthcheck:
-      test: ["CMD-SHELL", "bash -lc 'pgrep -f \"airflow scheduler\" >/dev/null'"]
+      test: ["CMD-SHELL", "airflow jobs check --job-type SchedulerJob --hostname \"$(hostname)\""]
       interval: 10s
       timeout: 5s
       retries: 12
+      start_period: 60s
     restart: unless-stopped
     depends_on:
       postgres-meta:
@@ -232,10 +234,11 @@ services:
       bash -lc "exec airflow triggerer"
     # command: ["bash","-lc","exec /home/airflow/.local/bin/airflow triggerer"]
     healthcheck:
-      test: ["CMD-SHELL", "bash -lc 'pgrep -f \"airflow triggerer\" >/dev/null'"]
+      test: ["CMD-SHELL", "airflow jobs check --job-type TriggererJob --hostname \"$(hostname)\""]
       interval: 10s
       timeout: 5s
       retries: 12
+      start_period: 60s
     restart: unless-stopped
     depends_on:
       postgres-meta:
