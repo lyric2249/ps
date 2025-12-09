@@ -132,7 +132,11 @@ services:
   # Superset
   # =========================
   superset:
-    image: ghcr.io/lyric2249/superset-custom:latest
+    # image: ghcr.io/lyric2249/superset-custom:latest
+    build:
+      context: superset              # Dockerfile.superset 있는 디렉터리
+      dockerfile: Dockerfile.superset
+
     env_file: .env
     environment:
       PUBLIC_HOST: ${PUBLIC_HOST}
@@ -140,12 +144,15 @@ services:
       SUPERSET_API_BASEURL: *superset_baseurl
       SQLALCHEMY_DATABASE_URI: ${SUPERSET_DB_URI}
       SUPERSET__SQLALCHEMY_DATABASE_URI: ${SUPERSET_DB_URI}
+      EXTRA_PIP_PACKAGES: authlib
+
       # (선택) Redis 캐시/큐 사용 시 superset_config.py에서 연결
       # e.g. redis://redis:6379/1
     expose: ["8088"]
     volumes:
       - superset_home:/app/superset_home
       - ./superset/superset_config.py:/app/pythonpath/superset_config.py:ro
+      - ./superset/custom_sso_security_manager.py:/app/pythonpath/custom_sso_security_manager.py:ro
       - ./superset/boot.sh:/docker-entrypoint-initdb.d/10_boot.sh:ro
     depends_on:
       postgres-meta:

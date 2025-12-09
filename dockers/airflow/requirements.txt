@@ -5,5 +5,7 @@ apache-airflow-providers-mongo==5.*
 # numpy==2.*
 # SQLAlchemy >= 2.0.25
 yfinance
+# polygon
+polygon-api-client
 # sqlalchemy==2.*
-# apache-airflow-providers-fab==3.*
+apache-airflow-providers-fab
